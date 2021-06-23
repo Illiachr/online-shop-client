@@ -9,8 +9,8 @@ const NavBar = () => {
   const { user } = useContext(Context);
   return (
   <Navbar bg="dark" variant="dark">
-    <Container fluid>
-      <NavLink style={{color: '#ffffff', fontSize: '24px'}} to={SHOP_ROUTE}>BuyYourDevice</NavLink>
+    <Container>
+      <NavLink className="ml-3" style={{color: '#ffffff', fontSize: '24px', textDecoration: 'none'}} to={SHOP_ROUTE}>BuyYourDevice</NavLink>
       { user.isAuth ?
         <Nav className="ml-auto" style={{color: '#ffffff'}}>
           <Button className="mr-2" variant={'outline-light'}>Admin panel</Button>
