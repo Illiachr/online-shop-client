@@ -16,7 +16,8 @@ const App = () => {
       user.setUser(data);
       user.setIsAuth(true);
     }).finally(() => setLoading(false));
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (loading) {
     return <Spinner animation='grow'/>;

@@ -1,20 +1,32 @@
 import { $host, $authHost } from './index';
 import jwtDecode from 'jwt-decode';
 
-export const registration = async (email, password) => {
-  const {data} = await $host.post('/users/registration', { email, password, role: 'admin' })
-  localStorage.setItem('token', data.token);
-  return jwtDecode(data.token);
+export const createType = async (type) => {
+  const {data} = await $authHost.post('/types', type);
+  return data;
 };
 
-export const login = async (email, password) => {
-  const {data} = await $host.post('/users/login', { email, password, role: 'admin' })
-  localStorage.setItem('token', data.token);
-  return jwtDecode(data.token);
+export const fetchTypes = async () => {
+  const {data} = await $host.get('/types');
+  return data;
 };
 
-export const check = async () => {
-  const {data} = await $authHost.get('/users/auth');
-  localStorage.setItem('token', data.token);
-  return jwtDecode(data.token);
+export const createBrand = async (brand) => {
+  const {data} = await $authHost.post('/brands', brand);
+  return data;
+};
+
+export const fetchBrands = async () => {
+  const {data} = await $host.get('/brands');
+  return data;
+};
+
+export const fetchItems = async () => {
+  const {data} = await $host.get('/items');
+  return data;
+};
+
+export const fetchOneItem = async (id) => {
+  const {data} = await $host.get(`/items/${id}`);
+  return data;
 };
