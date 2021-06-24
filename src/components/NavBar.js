@@ -8,7 +8,13 @@ import { observer } from 'mobx-react-lite';
 const NavBar = () => {
   const { user } = useContext(Context);
   const history = useHistory();
-  console.log(user.isAuth);
+  
+  const logOut = () => {
+    user.setUser({});
+    user.setIsAuth(false);
+    localStorage.removeItem('token');
+  }
+
   return (
   <Navbar bg="dark" variant="dark">
     <Container>
@@ -24,10 +30,7 @@ const NavBar = () => {
           </Button>
           <Button
             variant={'outline-light'}
-            onClick={() => {
-              user.setIsAuth(false);
-              history.push(`${SHOP_ROUTE}`)
-            }}
+            onClick={logOut}
           >
             Log Out
           </Button>
