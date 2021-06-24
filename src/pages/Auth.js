@@ -1,12 +1,15 @@
-import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { Row, Card, Form, Button, Container } from 'react-bootstrap';
-import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '../const';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../const';
+import { Context } from '../index';
+import { observer } from 'mobx-react-lite';
 
 const Auth = () => {
   const location = useLocation();
+  const history = useHistory()
   const isLogin = location.pathname === LOGIN_ROUTE;
-  console.log('location.pathname >>> ', location.pathname);
+  const { user } = useContext(Context);
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
@@ -31,7 +34,12 @@ const Auth = () => {
             : <div>Already have an account? <NavLink to={LOGIN_ROUTE}>Log In</NavLink></div>
           }
           <Button
-          variant={"outline-success"}>
+            onClick={() => {
+              user.setIsAuth(true);
+              history.push(`${SHOP_ROUTE}`);
+            }}
+            variant={"outline-success"}
+          >
           {isLogin ? 'Log In' : 'Register'}
         </Button>
         </Row>
@@ -41,4 +49,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default observer(Auth);
