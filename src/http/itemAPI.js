@@ -16,13 +16,21 @@ export const createBrand = async (brand) => {
   return data;
 };
 
+export const createItem = async (item) => {
+  const {data} = await $authHost.post('/items', item);
+  return data;
+};
+
 export const fetchBrands = async () => {
   const {data} = await $host.get('/brands');
   return data;
 };
 
-export const fetchItems = async () => {
-  const {data} = await $host.get('/items');
+export const fetchItems = async (typeId, brandId, page, limit = 5) => {
+  const {data} = await $host.get('/items', { params: {
+      typeId, brandId, page, limit
+    }
+  });
   return data;
 };
 

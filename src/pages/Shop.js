@@ -7,6 +7,7 @@ import BrandBar from '../components/BrandBar';
 import ItemList from '../components/ItemList';
 import TypeBar from '../components/TypeBar';
 import { fetchBrands, fetchItems, fetchTypes } from '../http/itemAPI';
+import Pages from '../components/Pages';
 
 const Shop = () => {
   const { items } = useContext(Context);
@@ -14,7 +15,10 @@ const Shop = () => {
   useEffect(() => {
     fetchTypes().then(data => items.setTypes(data));
     fetchBrands().then(data => items.setBrands(data));
-    fetchItems().then(data => items.setItems(data.rows));
+    fetchItems().then(data => {
+      items.setItems(data.rows);
+      items.setTotalCount(data.count);
+    });
   }, []);
 
   return (
@@ -26,6 +30,7 @@ const Shop = () => {
         <Col md={9}>
           <BrandBar/>
           <ItemList/>
+          <Pages/>
         </Col>
       </Row>
     </Container>
